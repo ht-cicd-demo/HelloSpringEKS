@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: spjenk/hello
+  repository: highlighttech/hello
   tag: latest
   pullPolicy: IfNotPresent
 

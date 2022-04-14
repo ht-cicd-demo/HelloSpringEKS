@@ -1,4 +1,4 @@
-package com.spjenk.hello;
+package com.highlighttech.hello;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

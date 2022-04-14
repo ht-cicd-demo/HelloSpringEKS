@@ -25,16 +25,16 @@ mvn install
 * checked BOOT-INF AND META-INF now exsit under target/dependency/
 * build docker container 
 ```
- docker build -t spjenk/hello .
+ docker build -t highlighttech/hello .
 ```
 * run docker container 
 ```
-docker container run --name hello -p 8080:8080 -d spjenk/hello
+docker container run --name hello -p 8080:8080 -d highlighttech/hello
 curl http://localhost:8080/hello
 ```
 * push to dockerhub
 ```
-docker push spjenk/hello:latest
+docker push highlighttech/hello:latest
 ```
 
 ## Add Kubernetes 
@@ -51,7 +51,7 @@ helm create chart
 * Updated chart 'values' YAMl file with the following 
 ```
 image:
-  repository: spjenk/hello
+  repository: highlighttech/hello
   tag: latest
   pullPolicy: IfNotPresent
 ```
