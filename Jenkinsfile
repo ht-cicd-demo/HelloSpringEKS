@@ -3,7 +3,7 @@ pipeline {
     stages { 
         stage('Build') { 
             steps { 
-                withDockerContainer(image: 'maven-selenium-chrome') {
+                withDockerContainer(image: 'maven') {
                     sh """
                         mvn install
                     """
