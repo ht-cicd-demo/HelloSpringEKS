@@ -29,6 +29,7 @@ pipeline {
                 withDockerContainer(image: 'maven') {
                     sh """
                         mvn install
+                        docker build . -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}
                     """
                 }
             }
@@ -36,7 +37,7 @@ pipeline {
         stage('Pushing to ECR') {
             steps {  
                 withAWS(credentials: 'aws-key', region: 'us-east-1'){
-                            sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
+                            // sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
                             sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"""
                 }
             }
