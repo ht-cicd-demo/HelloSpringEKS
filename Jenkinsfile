@@ -1,6 +1,7 @@
 pipeline { 
     agent any 
     environment {
+        AWS_ECR_LOGIN = 'true'
         AWS_ACCOUNT_ID="627552558471"
         AWS_DEFAULT_REGION="us-east-1" 
         IMAGE_REPO_NAME="springboot-pipeline"
