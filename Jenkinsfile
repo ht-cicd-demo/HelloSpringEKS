@@ -11,11 +11,12 @@ pipeline {
     stages { 
         stage('Logging into AWS ECR') {
             steps {
-                withAWS(credentials: 'aws-key', region: 'us-east-1')
-                    script {
-                    sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-                    }
-                    
+                withAWS(credentials: 'aws-key', region: 'us-east-1'){
+
+                    sh """
+                        aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+                    """
+                } 
             }
         }
         stage('Cloning Git') {
@@ -34,11 +35,10 @@ pipeline {
         }
         stage('Pushing to ECR') {
             steps {  
-                withAWS(credentials: 'aws-key', region: 'us-east-1')
-                    script {
-                            sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-                            sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-                    }
+                withAWS(credentials: 'aws-key', region: 'us-east-1'){
+                            sh """docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"""
+                            sh """docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"""
+                }
             }
       }
     }
